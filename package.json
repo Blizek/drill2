@@ -2,7 +2,9 @@
   "name": "drill2",
   "version": "2.4.3",
   "description": "Browser-based multiple choice test learning assistant",
-  "dependencies": {},
+  "scripts": {
+    "deploy": "gh-pages -d build"
+  },
   "devDependencies": {
     "appcache-files": "git+https://github.com/gronostajo/appcache-files.git",
     "beepbeep": "1.2.0",
@@ -12,6 +14,7 @@
     "coffeelint-newline-at-eof": "0.4.1",
     "coffeescript": "^2.7.0",
     "del": "2.2.x",
+    "gh-pages": "^6.3.0",
     "group-array": "^0.3.1",
     "gulp": "3.9.1",
     "gulp-coffee": "2.3.2",
@@ -40,7 +43,7 @@
   },
   "overrides": {
     "graceful-fs": "^4.2.11"
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/gronostajo/drill2.git"
