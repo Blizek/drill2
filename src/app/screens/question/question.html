@@ -7,6 +7,9 @@
         <button class="btn btn-default" type="button" question-string="currentQuestion" title="Show question string">
             <glyphicon icon="copy"></glyphicon>
         </button>
+        <button class="btn btn-default" type="button" ng-click="copyQuestion()" title="Copy to clipboard">
+            <glyphicon icon="save-file"></glyphicon>
+        </button>
     </div>
     <h2 title="{{currentQuestion.id != false ? currentQuestion.id : 'No ID'}}">Question {{questionIndex}} out of {{questions.length}}</h2>
 </div>
