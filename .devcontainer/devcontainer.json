@@ -1,0 +1,22 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "drill2-dev",
+	"dockerComposeFile": "./compose.yml",
+	"workspaceFolder": "/workspace",
+	"service": "dev",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "10"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.remote-containers"
+			]
+		}
+	},
+	"updateContentCommand": "pwd && ls -l && ./install-dependencies.sh"
+}
