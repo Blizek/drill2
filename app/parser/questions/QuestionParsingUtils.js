@@ -18,7 +18,7 @@ angular.module('DrillApp').service('QuestionParsingUtils', function(ParsingUtils
     function _Class() {}
 
     _Class.prototype.parseQuestion = function(str) {
-      var answerMatch, builder, i, identifierMatched, len, line, lines, parsingAnswers;
+      var answerMatch, builder, i, identifierMatched, len, line, lines, matchMatch, parsingAnswers, parsingMatches;
       lines = ParsingUtils.splitWithNewlines(str);
       builder = new QuestionBuilder();
       if ((identifierMatched = ParsingUtils.matchIdentifier(lines[0]))) {
@@ -27,16 +27,26 @@ angular.module('DrillApp').service('QuestionParsingUtils', function(ParsingUtils
         builder.setIdentifier(identifierMatched.identifier);
       }
       parsingAnswers = false;
+      parsingMatches = false;
       for (i = 0, len = lines.length; i < len; i++) {
         line = lines[i];
-        if (!parsingAnswers) {
-          if (!(answerMatch = ParsingUtils.matchAnswer(line))) {
-            builder.appendToBody(line);
-          } else {
+        if (!parsingAnswers && !parsingMatches) {
+          if ((matchMatch = ParsingUtils.matchMatch(line))) {
+            parsingMatches = true;
+            builder.addMatch(matchMatch.prompt, matchMatch.correct);
+          } else if ((answerMatch = ParsingUtils.matchAnswer(line))) {
             parsingAnswers = true;
             builder.addAnswer(answerMatch.content, answerMatch.correct, answerMatch.letter);
+          } else {
+            builder.appendToBody(line);
           }
-        } else {
+        } else if (parsingMatches) {
+          if ((matchMatch = ParsingUtils.matchMatch(line))) {
+            builder.addMatch(matchMatch.prompt, matchMatch.correct);
+          } else {
+            builder.appendMatchLine(line);
+          }
+        } else if (parsingAnswers) {
           if ((answerMatch = ParsingUtils.matchAnswer(line))) {
             builder.addAnswer(answerMatch.content, answerMatch.correct, answerMatch.letter);
           } else {
@@ -48,7 +58,7 @@ angular.module('DrillApp').service('QuestionParsingUtils', function(ParsingUtils
     };
 
     _Class.prototype.mergeBrokenQuestions = function(questions, logFn) {
-      var i, index, mergeNextOne, mergeWithNextOne, mergeWithPreviousOne, merged, msg, processedQuestion, question, questionExcerpt, ref, result, toBeMerged;
+      var i, index, mergeNextOne, mergeWithNextOne, mergeWithPreviousOne, merged, msg, processedQuestion, q, question, questionExcerpt, ref, result, toBeMerged;
       if (logFn == null) {
         logFn = function() {};
       }
@@ -63,7 +73,8 @@ angular.module('DrillApp').service('QuestionParsingUtils', function(ParsingUtils
       })();
       mergeWithNextOne = mergeWithPreviousOne.slice(1);
       for (index = i = 0, ref = mergeWithNextOne.length; 0 <= ref ? i < ref : i > ref; index = 0 <= ref ? ++i : --i) {
-        if (questions[index].answers.length === 0) {
+        q = questions[index];
+        if (q.answers.length === 0 && q.matches.length === 0) {
           mergeWithNextOne[index] = true;
         }
       }
@@ -100,7 +111,11 @@ angular.module('DrillApp').service('QuestionParsingUtils', function(ParsingUtils
       for (i = 0, len = questions.length; i < len; i++) {
         question = questions[i];
         if (!question.body.trim().length) {
-          msg = "Skipped question because it has no body (" + question.answers.length + " answers)";
+          msg = 'Skipped question because it has no body';
+        } else if (question.type === 'matching') {
+          if (question.matches.length < 1) {
+            msg = "Skipped matching question because it has no matches: '" + (excerpt(question)) + "'";
+          }
         } else if (question.answers.length < 2) {
           msg = "Skipped question because it has less than 2 answers: '" + (excerpt(question)) + "'";
           if (question.merged) {

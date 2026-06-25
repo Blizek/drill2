@@ -135,6 +135,11 @@
 				$scope.reorderElements();
 				$scope.escapeQuestions();
 				$scope.loadGrader();
+				for (var i = 0; i < $scope.questions.length; i++) {
+					if ($scope.questions[i].initializeMatching) {
+						$scope.questions[i].initializeMatching($scope.config.shuffleAnswers);
+					}
+				}
 				$scope.nextQuestion();
 			};
 
@@ -165,6 +170,12 @@
 					$scope.currentQuestion.answers[i].checked = false;
 				}
 				$scope.currentQuestion.checkedAnswer = undefined; // for radio input questions
+
+				if ($scope.currentQuestion.type === 'matching') {
+					for (var i = 0; i < $scope.currentQuestion.matches.length; i++) {
+						$scope.currentQuestion.matches[i].selected = '';
+					}
+				}
 
 				ViewportHelper.scrollToTop(function () {
 					$scope.$apply(function () {
@@ -202,9 +213,11 @@
 					else {
 						$scope.nextQuestion();
 					}
+					return;
 				}
 
 				if ($scope.view.isGraded()) return;
+				if ($scope.currentQuestion.type === 'matching') return;
 
 				for (i = 0; i < $scope.currentQuestion.answers.length; i++) {
 					sortingKeys.push($scope.currentQuestion.answers[i].sortingKey);
@@ -297,6 +310,12 @@
 					if (question.explanation) {
 						question.explanation = question.explanation.replace(regex, escape_func);
 					}
+					if (question.type === 'matching') {
+						for (var m = 0; m < question.matches.length; m++) {
+							question.matches[m].prompt = question.matches[m].prompt.replace(regex, escape_func);
+							question.matches[m].correct = question.matches[m].correct.replace(regex, escape_func);
+						}
+					}
 				}
 			};
 
@@ -341,6 +360,11 @@
 						$scope.currentQuestion.answers[i].checked = false;
 					}
 					$scope.currentQuestion.checkedAnswer = undefined; // for radio input questions
+					if ($scope.currentQuestion.type === 'matching') {
+						for (var i = 0; i < $scope.currentQuestion.matches.length; i++) {
+							$scope.currentQuestion.matches[i].selected = '';
+						}
+					}
 					$scope.grade();
 					$scope.stopTimer();
 				}

@@ -13,8 +13,17 @@ angular.module('DrillApp').service('QuestionBuilder', function(Question) {
       identifier: null
     };
 
+    QuestionBuilder.prototype.match = {
+      lines: [],
+      prompt: null
+    };
+
     function QuestionBuilder() {
       this.bodyLines = [];
+      this.matches = [];
+      this.match = {
+        lines: []
+      };
     }
 
     QuestionBuilder.prototype.setIdentifier = function(identifier) {
@@ -44,11 +53,20 @@ angular.module('DrillApp').service('QuestionBuilder', function(Question) {
       return this.answer.lines = [];
     };
 
+    QuestionBuilder.prototype._pushMatch = function() {
+      var matchCorrect;
+      matchCorrect = this.match.lines.join('\n');
+      this.question.addMatch(this.match.prompt, matchCorrect);
+      return this.match.lines = [];
+    };
+
     QuestionBuilder.prototype.addAnswer = function(line, correct, identifier) {
       if (this.question == null) {
         this._buildQuestion();
       } else if (this.answer.lines.length) {
         this._pushAnswer();
+      } else if (this.match.lines.length) {
+        this._pushMatch();
       }
       this.answer.lines.push(line.trim());
       this.answer.correct = correct;
@@ -62,6 +80,8 @@ angular.module('DrillApp').service('QuestionBuilder', function(Question) {
         this._buildQuestion();
       } else if (this.answer.lines.length) {
         this._pushAnswer();
+      } else if (this.match.lines.length) {
+        this._pushMatch();
       }
       for (i = 0, len = answers.length; i < len; i++) {
         answer = answers[i];
@@ -78,11 +98,34 @@ angular.module('DrillApp').service('QuestionBuilder', function(Question) {
       return this;
     };
 
+    QuestionBuilder.prototype.addMatch = function(prompt, correct) {
+      if (this.question == null) {
+        this._buildQuestion();
+      } else if (this.answer.lines.length) {
+        this._pushAnswer();
+      } else if (this.match.lines.length) {
+        this._pushMatch();
+      }
+      this.match.prompt = prompt;
+      this.match.lines.push(correct);
+      return this;
+    };
+
+    QuestionBuilder.prototype.appendMatchLine = function(line) {
+      if (!this.match.lines.length) {
+        throw new Error('Match not created yet');
+      }
+      this.match.lines.push(line.trim());
+      return this;
+    };
+
     QuestionBuilder.prototype.build = function() {
       if (this.question == null) {
         this._buildQuestion();
       } else if (this.answer.lines.length) {
         this._pushAnswer();
+      } else if (this.match.lines.length) {
+        this._pushMatch();
       }
       return this.question;
     };

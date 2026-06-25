@@ -24,6 +24,19 @@ angular.module('DrillApp').service('ParsingUtils', function() {
       }
     };
 
+    _Class.prototype.matchMatch = function(str) {
+      var match;
+      match = /^\s*\[match\]\s*([\s\S]+?)\s*(?:=|\||->)\s*([\s\S]+)$/i.exec(str);
+      if (match) {
+        return {
+          prompt: match[1].trim(),
+          correct: match[2].trim()
+        };
+      } else {
+        return false;
+      }
+    };
+
     _Class.prototype.matchIdentifier = function(str) {
       var match;
       match = /^\[#([A-Z\d\-+_]+)]\s*([\s\S]*)$/i.exec(str);
