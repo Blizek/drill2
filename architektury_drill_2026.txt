@@ -1,0 +1,435 @@
+**Pamięć podręczna**
+    A) ma większą pojemność niż pamięć operacyjna
+    >>>B) pamięć podręczna pierwszego poziomu L1 jest zazwyczaj typu harwardzkiego
+    >>>C) skutecznemu wykorzystaniu pamięci podręcznej sprzyja optymalizacja typu "out-of-order" w technologii RISC
+    >>>D) zwiększa stopień lokalności danych
+
+**Zasada i model Amdahla przetwarzania równoległego**
+    A) w rzeczywistych obliczeniach czas obliczeń tego samego algorytmu (programu) na wielu procesorach jest zawsze krótszy niż na jednym procesorze
+    >>>B) w modelu Amdahla zależność przyspieszenia od liczby elementów przetwarzających ma charakter nasycający
+    >>>C) stosuje się do badania efektywności algorytmów równoległych przy założeniu stałej wielkości problemu obliczeniowego
+    D) wielkość części sekwencyjnej algorytmu (programu) nie ma wpływu na przyspieszenie obliczeń
+    E) zależność przyspieszenia od liczby elementów przetwarzających jest zawsze liniowa
+
+**Dla minimalizacji awarii w maszynach o wielu procesorach stosuje się:**
+    >>>A) rozwiązania w oparciu o dynamiczną warstwę komunikacyjną
+    B) pakietową magistralę danych
+    >>>C) elementy nadmiarowe
+    D) pamięć podręczną w procesorach
+    E) wysoką częstotliwość pracy procesorów
+
+**Najwydajniejszym rozwiązaniem warstwy komunikacyjnej w klasycznych modelach maszyn o wielu procesorach jest:**
+    A) Sieć przełączająca (switching network)
+    B) Magistrala systemowa
+    C) sieć typu Omega (Butterfly)
+    >>>D) Przełącznica krzyżowa
+
+**Dlaczego producenci procesorów starają się wykorzystywać nowe technologie produkcji układów scalonych (np. technologię 7nm w porównaniu do 14nm)?**
+    >>>A) możliwość wykorzystania większej częstotliwości pracy
+    B) jest łatwiejsza w produkcji
+    C) większa stabilność pracy i mniejsza podatność na zakłócenia (np. pochodzące z promieniowania kosmicznego)
+    >>>D) mniejsze zużycie energii elektrycznej
+
+**Czym różnią się od siebie modele przetwarzania HTC i HPC?**
+    A) niczym - te pojęcia są tożsame i dotyczą wykorzystania architektur o wielkiej liczbie procesorów
+    >>>B) pojęciem HPC określa się obliczenia wielkiej skali złożoności, typowe dla zastosowań naukowo-technicznych
+    C) obliczenia typu HTC angażują możliwie dużą liczbę zasobów dla potrzeb realizacji obliczeń pojedynczej aplikacji typu symulacyjnego
+    >>>D) pojęcie HTC związane jest z przepustowością infrastruktury obliczeniowej co oznacza możliwość jednoczesnej realizacji wielu zadań
+
+**Wielowątkowość i wielordzeniowość**
+    >>>A) zostały rozwinięte niezależnie przez producentów
+    B) zostały rozwinięte specjalnie dla procesorów graficznych
+    C) są charakterystyczne tylko dla procesorów AMD
+    D) są synonimami
+
+**Czego dotyczy prawo Gustafsona?**
+    >>>A) słabej skalowalności (weak scalability)
+    B) oceny wydajności w przetwarzaniu transakcyjnym
+    >>>C) oceny wydajności aplikacji równoległej, w którym wraz ze wzrostem wielkości problemu obliczeniowego stosuje się coraz większą liczbę procesorów zachowując stały czas obliczeń
+    D) oceny wydajności w dostępie do rozproszonych danych
+
+**Procesory AMD i Intel**
+    >>>A) współcześnie produkowane implementują instrukcje AVX
+    B) realizują odmienne zestawy instrukcji
+    >>>C) ich udział dominuje w komputerach listy TOP500
+    D) architektury HPC wykorzystujące te procesory nie mogą mieć zainstalowanych dodatkowo procesorów graficznych
+
+**Koherencja (spójność) pamięci podręcznej procesorów**
+    A) odnosi się tylko do architektur wieloprocesorowych
+    B) nie stosuje się w architekturach ccNUMA
+    >>>C) w rozbudowanych modelach architektur o wielu procesorach stosuje się protokół hierarchiczny-katalogowy
+    >>>D) stosuje się protokoły: magistralowy (snoopy) i hierarchiczny-katalogowy (directory)
+
+**Model architektury SIMD:**
+    A) w realizacji technicznej wykorzystuje magistralę przy realizacji warstwy komunikacyjnej
+    >>>B) obejmuje przetwarzanie potokowe
+    >>>C) należy do niego przetwarzanie wektorowe
+    >>>D) był realizowany w procesorach macierzowych
+    E) dobrze nadaje się do obliczeń równoległych w modelu obliczeń wymiany komunikatów z dekompozycją domenową
+
+**Jakie cechy szczególne procesorów predystynują je do zastosowań:**
+[match] obliczenia w zakresie sztucznej inteligencji i uczenia maszynowego = duża wydajność w arytmetyce zmiennoprzecinkowej 16-bitowej i w przetwarzaniu na liczbach całkowitych 8-bitowych
+[match] obliczenia naukowo-techniczne = duża wydajność w arytmetyce podwójnej precyzji
+
+**Własności wspólnej (współdzielonej) pamięci operacyjnej**
+    A) stosuje się najczęściej w programowaniu dużych aplikacji przeznaczonych do realizacji na komputerach o wielkiej liczbie procesorów
+    >>>B) jest dostępna wirtualnie w architekturze ccNUMA
+    >>>C) jest wygodna i stosunkowo łatwa w zastosowaniach programistycznych
+    >>>D) w programowaniu można wykorzystać środowisko OpenMP
+
+**Architektura komputera typu MPP o wielu procesorach charakteryzuje się tym, że:**
+    A) musi składać się z procesorów o różnych typach instrukcji
+    B) każdy procesor ma dostęp do wspólnej pamięci operacyjnej
+    >>>C) stosuje się ją w obliczeniach naukowo-technicznych o wielkiej skali złożoności
+    D) jest zarządzana przez jeden system operacyjny
+    E) nie może być rozbudowywana do setek lub tysięcy procesorów
+
+**Linpack to oprogramowanie służące do:**
+    >>>A) tworzenia listy TOP500
+    >>>B) badania wydajności maszyn w zastosowaniach naukowo-technicznych
+    C) testowania zdalnego dostępu do danych
+    >>>D) numerycznego rozwiązywania układu równań liniowych
+    E) badania wydajności obliczeń maszyn cyfrowych w zastosowaniach przetwarzania transakcyjnego i bazach danych
+
+**Konsystencja (zwartość) pamięci operacyjnej w architekturach wieloprocesorowych (memory consistency)**
+    >>>A) realizacja protokołu write through zapisuje zmiany w wartościach danych do pamięci i do pamięci podręcznej
+    >>>B) występuje przykładowo w architekturach ccNUMA
+    C) ma zastosowanie w modelu architektur typu MPP
+    >>>D) realizacja protokołu write back zapisuje zmiany w wartościach danych tylko do pamięci podręcznej
+    >>>E) w zależności od projektu stosuje się typowo protokoły z grupy write through lub write back
+
+**Technologia CISC posiada następujące cechy szczególne:**
+    >>>A) rozkazy różnej długości
+    B) krótka lista rozkazów
+    C) najczęściej używana technologia obecnie
+    D) ułatwia uzyskanie równoległości na poziomie instrukcji
+    >>>E) krótki kod, prosty kompilator
+
+**Model obliczeń równoległych z wymianą komunikatów jest:**
+    A) stosowany najczęściej w maszynach o modelu wspólnej pamięci operacyjnej
+    >>>B) użyteczny w programowaniu dużych aplikacji przeznaczonych do realizacji na maszynach o wielkiej liczbie procesorów
+    C) wykorzystuje w programowaniu biblioteki funkcji komunikacyjnych
+    >>>D) wykorzystuje środowisko programowania OpenMPI
+    E) łatwy w zastosowaniach programistycznych
+
+**Do maszyn typu MIMD należą:**
+    >>>A) maszyny typu SMP
+    B) maszyny, w których przetwarzanie jest realizowane wyłącznie potokowo
+    C) maszyny, w których działaniu wykorzystuje się zasady fizyki kwantowej
+    >>>D) ccNUMA
+    E) najczęściej rozwiązania wykorzystujące specjalizowane (specjalne) procesory
+    F) maszyny, na których wykorzystuje się wyłącznie model programowania z wymianą komunikatów
+
+**Model z wymianą komunikatów**
+    >>>A) we własnym programie programista stosuje funkcje komunikacyjne z biblioteki zainstalowanej w systemie (najczęściej OpenMPI)
+    >>>B) fragmenty programu obliczane na poszczególnych węzłach mają lokalne wartości zmiennych
+    C) model programowania równoległego z wymianą komunikatów stosuje się wyłącznie na architekturach realizujących model pamięci rozproszonej
+    >>>D) funkcje komunikacyjne mogą być synchroniczne lub asynchroniczne
+    >>>E) funkcje komunikacyjne są typu punkt-punkt (węzeł-węzeł) oraz kolektywne (odnoszące się do komunikacji z wieloma węzłami obliczeniowymi jednocześnie)
+
+**Przetwarzanie potokowe to rodzaj optymalizacji przetwarzania o cechach:**
+    A) odnosi się do technologii CISC
+    >>>B) odnosi się do technologii RISC
+    >>>C) pozwala na szybsze wykonanie pętli programowej (czyli instrukcji iteracyjnej) niż przetwarzanie sekwencyjne
+    D) przy przetwarzaniu potokowym instrukcje warunkowe w pętli (czyli w instrukcji iteracyjnej) nie przeszkadzają w efektywnej realizacji
+
+**Model pamięci współdzielonej**
+    A) występuje tylko w odniesieniu do klastrów komputerów
+    >>>B) może być wykorzystany w maszynach typu MIMD
+    >>>C) jest typowy dla maszyn SMP
+    D) w wykorzystaniu architektury o tym modelu pamięci stosuje się model programowania z wymianą komunikatów
+    E) w realizacji musi wykorzystywać przełącznicę krzyżową jako warstwę komunikacyjną
+
+**W jakim celu stosuje się statyczne realizacje warstwy komunikacyjnej o topologii drzewiastej i hipersześciennej w wersji fat (tłuste drzewo i tłusty hipersześcian)?**
+    >>>A) dla uniknięcia zakleszczeń w komunikacji
+    >>>B) dla zrównoważenia narzutu komunikacyjnego w całym systemie
+    C) dla ułatwienia rozbudowy infrastruktury w przyszłości
+
+**Podaj skojarzenia w kontekście taksonomii komputerów**
+[match] SISD, SIMD, MIMD, MISD = taksonomia Flynna
+[match] SM, DSM, ccNUMA = organizacja przestrzeni adresowej
+[match] przełącznica krzyżowa (crossbar), magistrala, Omega network, tłuste drzewo = taksonomia pod względem organizacji warstwy komunikacyjnej
+
+**Dlaczego benchmark HPCG uchodzi za bardziej wiarygodny od benchmarku LINPACK?**
+    >>>A) jest bardziej współczesny
+    >>>B) dotyczy rozwiązania układu równań liniowych z macierzą rzadką
+    >>>C) dotyczy rzeczywistych zagadnień zastosowań metody elementów skończonych
+    D) dotyczy rozwiązania układu równań liniowych z macierzą gęstą
+
+**Do jakościowej oceny wydajności systemów przeznaczonych do złożonych obliczeń numerycznych służą:**
+    >>>A) własne aplikacje, dobierając system do własnych potrzeb
+    >>>B) Linpack HPL
+    C) aplikacje bazodanowe
+    >>>D) HPCG
+
+**Wzrost wydajności współczesnych procesorów w obecnych projektach pochodzi od:**
+    A) zastosowania połączeń aluminiowych zamiast miedzianych pomiędzy jednostkami funkcjonalnymi procesora
+    >>>B) użycia instrukcji wektorowych w zbiorze instrukcji procesora
+    >>>C) zwiększenia liczby operacji elementarnych w jednym cyklu zegara
+    D) wzrostu częstotliwości pracy
+    >>>E) zwiększenia liczby rdzeni
+
+**Procesory graficzne w dużych komputerach**
+    A) procesory graficzne Instinct Radeon mogą być używane w dowolnych zastosowaniach wymagających szybkiej komunikacji z pamięcią RAM komputera
+    B) kombinacja CPU i GPU ułatwia programowanie i wykorzystanie przez użytkownika
+    >>>C) dzięki zastosowaniu CPU i GPU uzyskuje się szersze możliwości zastosowań i większą zagregowaną moc obliczeniową infrastruktury
+    >>>D) procesory graficzne szczególnie nadają się do analizy danych i problemów sztucznej inteligencji
+    >>>E) nie zawsze stosuje się GPU, niektóre duże komputery są homogeniczne, tj. wykorzystują procesory tylko jednego typu
+
+**We współczesnych procesorach:**
+    >>>A) moc elektryczna potrzebna do zasilania procesora rośnie szybciej niż liniowo wraz z wzrostem częstotliwości pracy
+    >>>B) wydajność obliczeniowa zależy zarówno od częstotliwości pracy jak i liczby instrukcji wykonywanych w jednym cyklu zegara
+    C) wzrost wydajności obliczeniowej uzyskuje się głównie poprzez wzrost częstotliwości pracy
+    >>>D) wzrost wydajności uzyskuje się głównie poprzez wzrost liczby instrukcji wykonywanej w jednym cyklu zegara
+
+**Uszereguj w porządku rosnącym pracę (w pJ) potrzebną do realizacji operacji:**
+(W teście było to pytanie na uszeregowanie elementów w kolejności rosnącej)
+    >>>A) DP FMADD flop < DP DRAM read < komunikacja lokalna wewnątrz systemu < komunikacja pomiędzy systemami wchodzącymi w skład dużej infrastruktury obliczeniowej
+    B) DP DRAM read < DP FMADD flop < komunikacja lokalna wewnątrz systemu < komunikacja pomiędzy systemami wchodzącymi w skład dużej infrastruktury obliczeniowej
+    C) komunikacja pomiędzy systemami wchodzącymi w skład dużej infrastruktury obliczeniowej < komunikacja lokalna wewnątrz systemu < DP DRAM read < DP FMADD flop
+    D) DP FMADD flop < komunikacja lokalna wewnątrz systemu < DP DRAM read < komunikacja pomiędzy systemami wchodzącymi w skład dużej infrastruktury obliczeniowej
+
+**Architektura komputera typu SMP o wielu procesorach charakteryzuje się tym, że:**
+    A) standardowo stosuje się w niej model programowania wykorzystujący programowanie z wymianą komunikatów
+    B) posiada skomplikowany model programowania aplikacji użytkownika
+    >>>C) jest zarządzana przez jeden system operacyjny
+    >>>D) procesory współdzielą zasoby pamięci operacyjnej
+    E) jest rzadko stosowana w praktyce ze względu na wysoki koszt i kłopotliwe zarządzanie z poziomu administratora
+
+**Zgodnie ze ścisłym modelem architektury von Neumanna**
+    >>>A) model komputera zawiera: jednostkę arytmetyczno-logiczną, układ sterujący, pamięć, układy wejścia/wyjścia
+    B) przepływ obliczeń sterowany jest dostępnością danych dla instrukcji
+    C) model zawiera pamięć podręczną
+    >>>D) przepływ obliczeń sterowany jest kolejnością instrukcji
+    E) pamięć jest standardu harwardzkiego
+
+**RISC i CISC**
+    A) CISC umożliwia efektywną realizację przetwarzania potokowego
+    B) RISC zawiera rozkazy różnej długości, rozkazy CISC są jednakowej długości
+    >>>C) RISC zawiera rozkazy jednakowej długości, rozkazy CISC są różnej długości
+    >>>D) skróty oznaczają listy rozkazów procesorów
+    E) w obu przypadkach listy rozkazów zawierają zbliżone liczby rozkazów
+
+**Ile wynosi promień/diameter (d) i stopień/degree (D) statycznej realizacji warstwy komunikacyjnej typu „każdy z każdym"?**
+[match] promień d = 1
+[match] stopień D = n-1
+
+**Pamięć typu cache:**
+    A) wielkość podsystemów (lub elementów) do przechowywania danych zachowuje typowo porządek rosnący: RAM, cache, dysk
+    B) wielkość pamięci podręcznej jest większa od pamięci RAM
+    >>>C) organizacja harwardzka jest wydajniejsza od organizacji von Neumanna
+    >>>D) służy do przyspieszania dostępu do danych znajdujących się w pamięci operacyjnej
+    >>>E) czas dostępu objawia się hierarchią (od najkrótszego do najdłuższego): rejestry, cache, RAM, pamięć zewnętrzna
+
+**Magistrala systemowa:**
+    >>>A) stanowi pojedynczy punkt uszkodzenia (single point of failure)
+    B) charakteryzuje się wysoką przepustowością w porównaniu z innymi rozwiązaniami warstwy komunikacyjnej
+    C) jest rozwiązaniem najbardziej zaawansowanym technologicznie
+    >>>D) umożliwia łatwą rozbudowę systemu, choć w ograniczonym zakresie
+    >>>E) jest typowa dla maszyn SMP
+
+**Wymień poziomy równoległości we współczesnych procesorach (czyli metody i techniki, które oferują wyższą wydajność niż przetwarzanie sekwencyjne)**
+    >>>A) potokowość
+    >>>B) wielowątkowość
+    C) technika "out-of-order"
+    >>>D) wielordzeniowość
+    >>>E) superskalarność
+
+**Uszereguj rozwiązania warstwy dynamicznej od najlepszego do najgorszego, biorąc pod uwagę jednocześnie wydajność i bezpieczeństwo pracy w warunkach częściowej awarii**
+(W teście było to pytanie na uszeregowanie)
+    >>>A) przełącznica krzyżowa (crossbar) > szybka sieć przełączająca (typu omega lub butterfly) > magistrala (bus)
+    B) magistrala (bus) > szybka sieć przełączająca (typu omega lub butterfly) > przełącznica krzyżowa (crossbar)
+    C) szybka sieć przełączająca (typu omega lub butterfly) > przełącznica krzyżowa (crossbar) > magistrala (bus)
+
+**Centra komputerów dużej mocy obliczeniowej zainstalowane są w polskich miastach:**
+    >>>A) Świerk
+    B) Toruń
+    >>>C) Poznań
+    >>>D) Kraków
+    >>>E) Gdańsk
+    >>>F) Wrocław
+    >>>G) Warszawa
+    H) Gliwice
+
+**Metody obliczeń algebry liniowej:**
+    >>>A) do szybkiej realizacji obliczeń stosuje się układy typu FMA
+    >>>B) są używane w zagadnieniach metody elementów skończonych
+    C) służą do symulacji metodą cząstek
+    D) służą do przetwarzania w modelu HTC
+    >>>E) wymagają szybkich operacji mnożenia i dodawania
+
+**Czy skróty CISC i RISC oznaczają różne sposoby dostępu do pamięci operacyjnej?**
+    A) Prawda
+    >>>B) Fałsz
+
+**Wskaż koszt obliczeń (1 - najbardziej kosztowne, 3 - najmniej kosztowne)**
+(W teście było to pytanie na uszeregowanie - przypisanie numerów 1–3)
+    >>>A) dzielenie w podwójnej precyzji > mnożenie w podwójnej precyzji > dodawanie stałoprzecinkowe 32-bitowe
+    B) dodawanie stałoprzecinkowe 32-bitowe > mnożenie w podwójnej precyzji > dzielenie w podwójnej precyzji
+    C) mnożenie w podwójnej precyzji > dzielenie w podwójnej precyzji > dodawanie stałoprzecinkowe 32-bitowe
+
+**Protokoły cache**
+[match] protokół write back = zapis danych tylko do pamięci podręcznej
+[match] protokół write through = zapis danych do pamięci podręcznej i pamięci operacyjnej
+
+**Reprezentację 64-bitową danych stosuje się typowo w:**
+    A) uczeniu maszynowym
+    B) analizie danych
+    >>>C) obliczeniach symulacyjnych
+
+**Ośrodki dużej mocy obliczeniowej (tzw. KDM) w Polsce zainstalowane są:**
+    A) w Częstochowie, Krakowie, Gdańsku, Warszawie, Wrocławiu i Świerku
+    B) tylko w Warszawie i Krakowie
+    >>>C) w Poznaniu, Krakowie, Gdańsku, Warszawie, Wrocławiu i Świerku
+
+**Co to jest Linpack?**
+    A) system oprogramowania do rozwiązywania układów równań liniowych z macierzą rzadką
+    >>>B) służy do tworzenia listy TOP500
+    C) system oprogramowania służący do oceny wydajności komputerów w obliczeniach sztucznej inteligencji
+    >>>D) system oprogramowania służący do oceny wydajności komputerów w obliczeniach numerycznych
+    >>>E) system oprogramowania do rozwiązywania układów równań liniowych z macierzą gęstą
+
+**Nauki obliczeniowe**
+    >>>A) dotyczą badań symulacyjnych
+    B) odnoszą się do przetwarzania transakcyjnego
+    >>>C) można stosować w nich metody sztucznej inteligencji i uczenia maszynowego
+
+**1 PB to**
+    >>>A) 10^15 B
+    B) 10^12 B
+    C) 10^18 B
+
+**Przetwarzanie typu SIMD**
+    >>>A) jest wykorzystywane w procesorach POWER
+    >>>B) jest charakterystyczne dla przetwarzania potokowego
+    >>>C) stosowane jest w procesorach graficznych
+
+**Określenia RISC i CISC dotyczą:**
+    A) modelu programowania równoległego
+    B) organizacji dostępu do pamięci operacyjnej
+    >>>C) listy rozkazowej procesora
+
+**Taksonomia Flynna dotyczy:**
+    >>>A) strumieni instrukcji i strumieni danych
+    >>>B) układów SIMD i MIMD
+    C) metod organizacji pamięci operacyjnej
+
+**Model programowania z wymianą komunikatów stosuje się**
+    >>>A) w systemach klastrowych
+    B) w systemach o pamięci wspólnej
+    >>>C) w superkomputerach o wielkiej liczbie procesorów
+    >>>D) w systemach klasy MPP
+
+**Dopasuj podstawowe współczesne architektury ogólnego przeznaczenia dla systemów serwerowych**
+[match] AMD = architektura ZEN (EPYC)
+[match] Intel = architektura CORE (XEON)
+
+**Dopasuj**
+[match] Crossbar (przełącznica krzyżowa) = najwydajniejsza, najdroższa, możliwa praca przy częściowej awarii
+[match] magistrala = oszczędna ekonomicznie, posiada pojedynczy punkt uszkodzenia
+
+**Open MP i OpenMPI - dopasuj**
+[match] OpenMPI = programowanie systemów z pamięcią rozproszoną
+[match] OpenMP = programowanie systemów z pamięcią wspólną
+
+**Czego dotyczą prawa Amdahla i Gustafsona?**
+[match] prawo Gustafsona = skalowanie obliczeń równoległych o rosnącym rozmiarze problemu
+[match] prawo Amdahla = skalowanie obliczeń równoległych o stałym rozmiarze problemu
+
+**AMD i Intel**
+    >>>A) posiadają instrukcje AVX i AMX
+    >>>B) są najpopularniejszymi obecnie stosowanymi
+    C) posiadają istotnie różne listy rozkazowe
+    D) we współczesnych wersjach nie nadają się do zastosowań komercyjnych
+
+**Procesory ARM**
+    >>>A) występują w homogenicznych węzłach obliczeniowych
+    >>>B) wchodzą w skład heterogenicznych węzłów obliczeniowych komputerów wieloprocesorowych
+    C) współcześnie nie są wykorzystywane w obliczeniach ze względu na niską moc obliczeniową
+    D) posiadają rozbudowaną listę rozkazów
+
+**Do dynamicznej warstwy komunikacyjnej zalicza się:**
+    A) torus 3D
+    >>>B) magistralę
+    >>>C) przełącznicę krzyżową (crossbar)
+
+**Protokół Infiniband stosuje się**
+    >>>A) do połączeń między węzłami obliczeniowymi komputerów
+    B) do transmisji pomiędzy komputerem a systemami pamięci masowej
+    C) jako zamiennik Ethernetu
+
+**Architektura NUMA**
+    >>>A) charakteryzuje się niejednakowym czasem dostępu do pamięci operacyjnej
+    >>>B) posiada jedną instancję systemu operacyjnego
+    C) jest charakterystyczna dla klastrów
+
+**Procesory graficzne nadają się**
+    >>>A) do typowych obliczeń macierzowych
+    B) do przetwarzania ogólnego typu, w tym struktur nieregularnych
+    >>>C) w sztucznej inteligencji do uczenia sieci neuronowych
+
+**Co to jest architektura SMP**
+    >>>A) najczęściej używana architektura w niewielkich serwerach
+    >>>B) sterowana jedną instancją systemu operacyjnego
+    >>>C) architektura z jednakowym czasem dostępu do pamięci operacyjnej
+    >>>D) typowo architektura ze wspólną pamięcią operacyjną
+
+**W odniesieniu do polskich zasobów komputerowych PIONIER jest:**
+    >>>A) akademicka sieć rozległa łącząca polskie ośrodki komputerów dużej mocy obliczeniowej
+    B) usługa dla zapewnienia ciągłości pracy każdego z polskich ośrodków
+    >>>C) Polish Optical Network
+    D) oprogramowanie zapewniające automatyczną dystrybucję zadań pomiędzy polskimi ośrodkami komputerów dużej mocy obliczeniowej
+
+**Co to jest SAN i do czego służy?**
+    A) Secure Active Node - do ochrony zasobów komputera przed niepowołanym dostępem
+    >>>B) służy do efektywnego dostępu do systemów pamięci masowych
+    C) Stateless Area Narrowing - protokół współpracy rozproszonych centrów obliczeniowych
+    >>>D) Storage Area Network - do przesyłania danych pomiędzy elementami infrastruktury obliczeniowej
+
+**Procesor o architekturze POWER:**
+    >>>A) może być stosowany w komputerach z procesorem graficznym
+    >>>B) jest procesorem o architekturze otwartej
+    C) jest produkowany wyłącznie przez firmę Intel
+    >>>D) jest stosowany często w komputerach o największej wydajności obliczeniowej
+    E) jest zaprojektowany w oparciu o technologię CISC
+
+**Lista TOP500:**
+    A) dla potrzeb listy TOP500 wykorzystuje się rozwiązanie układu równań liniowych z macierzą rzadką
+    >>>B) dla potrzeb listy TOP500 wykorzystuje się rozwiązanie układu równań liniowych z macierzą gęstą
+    >>>C) wykorzystuje pakiet algebry liniowej LINPACK
+    >>>D) służy do tworzenia listy 500 najbardziej wydajnych komputerów przy aktualizacji co pół roku
+    >>>E) złożoność obliczeniowa algorytmu wykorzystywanego jest rzędu n^3 gdzie n jest rozmiarem macierzy
+
+**Pamięć nieulotna:**
+    >>>A) jest (obecnie) wolniejsza niż standardowy DRAM
+    >>>B) zachowuje stan po wyłączeniu zasilania
+    >>>C) może być wykonana z wykorzystaniem układów memrystorowych
+    >>>D) reprezentacją jest produkt Intel Optane 3D XPoint
+
+**Dlaczego producenci dużych komputerów wykorzystują procesory graficzne?**
+    >>>A) dzięki zastosowaniu CPU i GPU uzyskuje się szersze możliwości zastosowań i większą zagregowaną moc obliczeniową infrastruktury
+    >>>B) wysoką wydajnością obliczeniową charakteryzują się rozwiązania: CPU INTEL i GPU NVidia
+    >>>C) nie zawsze, niektóre duże komputery są homogeniczne, tj. wykorzystują procesory tylko jednego typu
+    D) najczęściej stosowane są kombinacje: CPU INTEL i GPU Instinct Radeon
+    E) kombinacja CPU i GPU ułatwia programowanie i wykorzystanie przez użytkownika
+
+**Technologia RISC posiada następujące cechy szczególne:**
+    >>>A) rozkazy złożone są tworzone z rozkazów prostych
+    >>>B) lista rozkazów jest krótka
+    >>>C) pozwala na optymalizację kodu
+    >>>D) rozkazy wykonywane są (zasadniczo) w jednakowym czasie
+    E) nie umożliwia przetwarzania potokowego
+
+**Dla najbardziej wydajnych maszyn ze szczytu listy TOP500 (stan na czerwiec 2026):**
+[match] moc obliczeniowa (maksymalna, w PFlop/s) = jeden do kilku tysięcy
+[match] moc elektryczna (w MW) = kilkadziesiąt
+[match] liczba rdzeni = kilka do kilkunastu milionów
+
+<options> {
+    "format": "2.1",
+    "markdown": true,
+    "mathjax": true,
+    "grading": "custom: incorrect ? 0 : (missed == 0) ? 3 : (missed == 1 && correct) ? 1 : 0",
+    "timeLimit": 90,
+    "repeatIncorrect": true
+}

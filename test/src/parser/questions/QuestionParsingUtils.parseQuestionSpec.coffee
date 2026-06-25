@@ -217,4 +217,32 @@ describe 'QuestionParsingUtils.parseQuestion', ->
     expect(result.answers[1].correct).toBe(false)
     expect(result.answers[1].id).toEqual('b')
 
+  it 'should parse matching questions', ->
+    result = @fn """
+                 Match the capitals
+                 [match] Poland = Warsaw
+                 [match] Germany = Berlin
+                 """
+    expect(result.body).toEqual('Match the capitals')
+    expect(result.type).toEqual('matching')
+    expect(result.matches.length).toBe(2)
+    expect(result.matches[0].prompt).toEqual('Poland')
+    expect(result.matches[0].correct).toEqual('Warsaw')
+    expect(result.matches[1].prompt).toEqual('Germany')
+    expect(result.matches[1].correct).toEqual('Berlin')
+
+  it 'should parse matching questions with other separators', ->
+    result = @fn """
+                 Match the capitals
+                 [match] France | Paris
+                 [match] Italy -> Rome
+                 """
+    expect(result.body).toEqual('Match the capitals')
+    expect(result.type).toEqual('matching')
+    expect(result.matches.length).toBe(2)
+    expect(result.matches[0].prompt).toEqual('France')
+    expect(result.matches[0].correct).toEqual('Paris')
+    expect(result.matches[1].prompt).toEqual('Italy')
+    expect(result.matches[1].correct).toEqual('Rome')
+
 # coffeelint: enable=no_unnecessary_double_quotes

@@ -50,3 +50,50 @@ describe 'Question', ->
                                         body
 
                                         """
+
+  it 'should stringify into matching question', ->
+    question = new @Question('body', 'id')
+    question.addMatch('Poland', 'Warsaw')
+    question.addMatch('Germany', 'Berlin')
+    expect(question.toString()).toEqual """
+                                        [#id] body
+                                        [match] Poland = Warsaw
+                                        [match] Germany = Berlin
+
+                                        """
+
+  it 'should initialize and shuffle matching choices', ->
+    question = new @Question('body')
+    question.addMatch('Poland', 'Warsaw')
+    question.addMatch('Germany', 'Berlin')
+    question.addMatch('France', 'Paris')
+    question.initializeMatching(no)
+    expect(question.shuffledChoices).toEqual(['Warsaw', 'Berlin', 'Paris'])
+
+    question.initializeMatching(yes)
+    expect(question.shuffledChoices.length).toBe(3)
+    expect(question.shuffledChoices).toContain('Warsaw')
+    expect(question.shuffledChoices).toContain('Berlin')
+    expect(question.shuffledChoices).toContain('Paris')
+
+  it 'should calculate correct, incorrect, and missed counts for matching', ->
+    question = new @Question('body')
+    question.addMatch('Poland', 'Warsaw')
+    question.addMatch('Germany', 'Berlin')
+    question.addMatch('France', 'Paris')
+
+    # No answers selected yet
+    expect(question.totalCorrect()).toBe(3)
+    expect(question.correct()).toBe(0)
+    expect(question.incorrect()).toBe(0)
+    expect(question.missed()).toBe(3)
+
+    # Some correct, some incorrect, some missed
+    question.matches[0].selected = 'Warsaw'
+    question.matches[1].selected = 'Paris' # Incorrect
+    question.matches[2].selected = ''      # Missed
+
+    expect(question.totalCorrect()).toBe(3)
+    expect(question.correct()).toBe(1)
+    expect(question.incorrect()).toBe(1)
+    expect(question.missed()).toBe(1)

@@ -7,9 +7,14 @@ angular.module('DrillApp').service 'QuestionBuilder', (Question) ->
       lines: []
       correct: null
       identifier: null
+    match:
+      lines: []
+      prompt: null
 
     constructor: ->
       @bodyLines = []
+      @matches = []
+      @match = {lines: []}
 
     setIdentifier: (identifier) ->
       if @identifier?
@@ -31,11 +36,18 @@ angular.module('DrillApp').service 'QuestionBuilder', (Question) ->
       @question.addAnswer(answerBody, @answer.correct, @answer.identifier)
       @answer.lines = []
 
+    _pushMatch: ->
+      matchCorrect = @match.lines.join('\n')
+      @question.addMatch(@match.prompt, matchCorrect)
+      @match.lines = []
+
     addAnswer: (line, correct, identifier) ->
       if not @question?
         @_buildQuestion()
       else if @answer.lines.length
         @_pushAnswer()
+      else if @match.lines.length
+        @_pushMatch()
       @answer.lines.push(line.trim())
       @answer.correct = correct
       @answer.identifier = identifier
@@ -46,6 +58,8 @@ angular.module('DrillApp').service 'QuestionBuilder', (Question) ->
         @_buildQuestion()
       else if @answer.lines.length
         @_pushAnswer()
+      else if @match.lines.length
+        @_pushMatch()
       for answer in answers
         @question.addAnswer(answer.body, answer.correct, answer.id)
       @
@@ -56,9 +70,28 @@ angular.module('DrillApp').service 'QuestionBuilder', (Question) ->
       @answer.lines.push(line.trim())
       @
 
+    addMatch: (prompt, correct) ->
+      if not @question?
+        @_buildQuestion()
+      else if @answer.lines.length
+        @_pushAnswer()
+      else if @match.lines.length
+        @_pushMatch()
+      @match.prompt = prompt
+      @match.lines.push(correct)
+      @
+
+    appendMatchLine: (line) ->
+      if not @match.lines.length
+        throw new Error('Match not created yet')
+      @match.lines.push(line.trim())
+      @
+
     build: ->
       if not @question?
         @_buildQuestion()
       else if @answer.lines.length
         @_pushAnswer()
+      else if @match.lines.length
+        @_pushMatch()
       @question

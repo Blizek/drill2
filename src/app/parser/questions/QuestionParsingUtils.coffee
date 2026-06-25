@@ -19,15 +19,24 @@ angular.module('DrillApp').service 'QuestionParsingUtils', (ParsingUtils, Questi
         builder.setIdentifier(identifierMatched.identifier)
 
       parsingAnswers = no
+      parsingMatches = no
 
       for line in lines
-        if not parsingAnswers
-          if not (answerMatch = ParsingUtils.matchAnswer(line))
-            builder.appendToBody(line)
-          else
+        if not parsingAnswers and not parsingMatches
+          if (matchMatch = ParsingUtils.matchMatch(line))
+            parsingMatches = yes
+            builder.addMatch(matchMatch.prompt, matchMatch.correct)
+          else if (answerMatch = ParsingUtils.matchAnswer(line))
             parsingAnswers = yes
             builder.addAnswer(answerMatch.content, answerMatch.correct, answerMatch.letter)
-        else
+          else
+            builder.appendToBody(line)
+        else if parsingMatches
+          if (matchMatch = ParsingUtils.matchMatch(line))
+            builder.addMatch(matchMatch.prompt, matchMatch.correct)
+          else
+            builder.appendMatchLine(line)
+        else if parsingAnswers
           if (answerMatch = ParsingUtils.matchAnswer(line))
             builder.addAnswer(answerMatch.content, answerMatch.correct, answerMatch.letter)
           else
@@ -38,8 +47,10 @@ angular.module('DrillApp').service 'QuestionParsingUtils', (ParsingUtils, Questi
     mergeBrokenQuestions: (questions, logFn = ->) ->
       mergeWithPreviousOne = (question.body.trim().length is 0 for question in questions)
       mergeWithNextOne = mergeWithPreviousOne[1..]  # one 'no' missing for last question
-      for index in [0...mergeWithNextOne.length] when questions[index].answers.length is 0
-        mergeWithNextOne[index] = yes
+      for index in [0...mergeWithNextOne.length]
+        q = questions[index]
+        if q.answers.length is 0 and q.matches.length is 0
+          mergeWithNextOne[index] = yes
       mergeWithNextOne = mergeWithNextOne.concat([no])
 
       result = []
@@ -67,7 +78,10 @@ angular.module('DrillApp').service 'QuestionParsingUtils', (ParsingUtils, Questi
 
       for question in questions
         if not question.body.trim().length
-          msg = "Skipped question because it has no body (#{question.answers.length} answers)"
+          msg = 'Skipped question because it has no body'
+        else if question.type is 'matching'
+          if question.matches.length < 1
+            msg = "Skipped matching question because it has no matches: '#{excerpt(question)}'"
         else if question.answers.length < 2
           msg = "Skipped question because it has less than 2 answers: '#{excerpt(question)}'"
           if question.merged

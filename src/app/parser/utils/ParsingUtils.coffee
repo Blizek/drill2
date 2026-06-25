@@ -16,6 +16,14 @@ angular.module('DrillApp').service 'ParsingUtils', ->
       else
         false
 
+    matchMatch: (str) ->
+      match = /^\s*\[match\]\s*([\s\S]+?)\s*(?:=|\||->)\s*([\s\S]+)$/i.exec(str)
+      if match
+        prompt: match[1].trim()
+        correct: match[2].trim()
+      else
+        false
+
     matchIdentifier: (str) ->
       match = /^\[#([A-Z\d\-+_]+)]\s*([\s\S]*)$/i.exec(str)
       if match
